@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NINA.Plugin.LogViewer", "NINA.Plugin.LogViewer.csproj", "{6B4BFDF8-8D01-416B-B776-4F655C23845A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NINA.Plugin.LogViewer.Test", "..\NINA.Plugin.LogViewer.Test\NINA.Plugin.LogViewer.Test.csproj", "{407BA483-2D57-40B2-ADCE-0B7662E5902C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B4BFDF8-8D01-416B-B776-4F655C23845A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B4BFDF8-8D01-416B-B776-4F655C23845A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B4BFDF8-8D01-416B-B776-4F655C23845A}.Debug|x64.ActiveCfg = Debug|x64
+		{6B4BFDF8-8D01-416B-B776-4F655C23845A}.Debug|x64.Build.0 = Debug|x64
+		{6B4BFDF8-8D01-416B-B776-4F655C23845A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B4BFDF8-8D01-416B-B776-4F655C23845A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B4BFDF8-8D01-416B-B776-4F655C23845A}.Release|x64.ActiveCfg = Release|x64
+		{6B4BFDF8-8D01-416B-B776-4F655C23845A}.Release|x64.Build.0 = Release|x64
+		{407BA483-2D57-40B2-ADCE-0B7662E5902C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{407BA483-2D57-40B2-ADCE-0B7662E5902C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{407BA483-2D57-40B2-ADCE-0B7662E5902C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{407BA483-2D57-40B2-ADCE-0B7662E5902C}.Debug|x64.Build.0 = Debug|Any CPU
+		{407BA483-2D57-40B2-ADCE-0B7662E5902C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{407BA483-2D57-40B2-ADCE-0B7662E5902C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{407BA483-2D57-40B2-ADCE-0B7662E5902C}.Release|x64.ActiveCfg = Release|Any CPU
+		{407BA483-2D57-40B2-ADCE-0B7662E5902C}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BA8DC71-FEB2-4C06-B331-FDB736F60B59}
+	EndGlobalSection
+EndGlobal

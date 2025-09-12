@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "NINA.Plugin.LogViewer": {
+      "commandName": "Project"
+    },
+    "NINA starten": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\N.I.N.A. 3 beta007 - Nighttime Imaging 'N' Astronomy\\NINA.exe",
+      "commandLineArgs": "-d"
+    }
+  }
+}
