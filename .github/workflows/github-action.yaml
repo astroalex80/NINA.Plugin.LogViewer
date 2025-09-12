@@ -23,9 +23,9 @@ env:
   # Your solution name
   PLUGIN_SLN_NAME: "NINA.Plugin.LogViewer.sln"
   # The name of the resulting dll file
-  PLUGIN_DLL_NAME: "Log Viewer"
+  PLUGIN_DLL_NAME: "LogViewer"
   # The relative path to your manifest folder inside the manifest repository
-  PLUGIN_MANIFEST_PATH: "l/Log Viewer"
+  PLUGIN_MANIFEST_PATH: ""
 
 jobs:
   build-and-release:
