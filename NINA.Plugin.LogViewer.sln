@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NINA.Plugin.LogViewer", "NI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NINA.Plugin.LogViewer.Test", "..\NINA.Plugin.LogViewer.Test\NINA.Plugin.LogViewer.Test.csproj", "{407BA483-2D57-40B2-ADCE-0B7662E5902C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NINA.Plugin LogViewer", "NINA.Plugin LogViewer", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B4BFDF8-8D01-416B-B776-4F655C23845A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{407BA483-2D57-40B2-ADCE-0B7662E5902C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6BA8DC71-FEB2-4C06-B331-FDB736F60B59}

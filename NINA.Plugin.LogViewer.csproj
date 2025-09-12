@@ -11,9 +11,6 @@
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="LogLevelStyles.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="logviewer3.png" />
     <None Remove="screenshot.PNG" />
   </ItemGroup>
@@ -54,6 +51,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tests\" />
   </ItemGroup>
   <PropertyGroup />
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
