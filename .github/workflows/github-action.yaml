@@ -21,7 +21,7 @@ env:
   # Adjust this to your plugin title
   PLUGIN_NAME: "Log Viewer"
   # Your solution name
-  PLUGIN_SLN_NAME: "NINA.Plugin.LogViewer.sln"
+  PLUGIN_SLN_NAME: "NINA.Plugin.LogViewer"
   # The name of the resulting dll file
   PLUGIN_DLL_NAME: "LogViewer"
   # The relative path to your manifest folder inside the manifest repository
