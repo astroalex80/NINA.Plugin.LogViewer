@@ -2,8 +2,6 @@
 // Credíts and thanks to tcpalmer for the original code.
 // https://github.com/tcpalmer
 //
-
-using Microsoft.WindowsAPICodePack.Dialogs;
 using NINA.Core.Locale;
 using NINA.Core.Utility;
 using System;
