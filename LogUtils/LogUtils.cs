@@ -4,11 +4,13 @@
 //
 
 using Microsoft.WindowsAPICodePack.Dialogs;
+using NINA.Core.Locale;
 using NINA.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace NINA.Plugin.Logviewer;
 
@@ -54,19 +56,31 @@ public static class LogUtils {
     }
 
     public static string? PickLogFile() {
-        var dialog = new CommonOpenFileDialog {
-            Title = "NINA Log Directory",
-            Filters = {
-                    new CommonFileDialogFilter("NINA Logs", "*.log"),
-                    new CommonFileDialogFilter("All Files", "*.*")
-                },
-            IsFolderPicker = false,
-            EnsureFileExists = true,
-            Multiselect = false,
-            DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            InitialDirectory = LogDirectory
-        };
-
-        return dialog.ShowDialog() == CommonFileDialogResult.Ok ? dialog.FileName : null;
+        Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+        dialog.Title = "Pick a N.I.N.A. Log file to open";
+        dialog.InitialDirectory = LogDirectory;
+        dialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        dialog.DefaultExt = "log";
+        dialog.Filter = "N.I.N.A. log files|*." + dialog.DefaultExt;
+        dialog.CheckFileExists = true;
+        dialog.CheckPathExists = true;
+        dialog.Multiselect = false;
+        return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
+
+    //var dialog = new CommonOpenFileDialog {
+    //    Title = "NINA Log Directory",
+    //    Filters = {
+    //                new CommonFileDialogFilter("NINA Logs", "*.log"),
+    //                new CommonFileDialogFilter("All Files", "*.*")
+    //            },
+    //    IsFolderPicker = false,
+    //    EnsureFileExists = true,
+    //    Multiselect = false,
+    //    DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+    //    InitialDirectory = LogDirectory
+    //};
+
+    //        return dialog.ShowDialog() == CommonFileDialogResult.Ok? dialog.FileName : null;
+    //}
 }
