@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # NINA.Plugin.LogViewer
 A N.I.N.A. plugin to read and filter N.I.N.A. log files.
 =======
@@ -30,4 +29,7 @@ A plugin for [N.I.N.A.](https://nighttime-imaging.eu/) that allows you to open, 
 3. Restart N.I.N.A.
 
 ---
->>>>>>> origin/master
+### Screenshot
+![Logviewer Plugin Screenshot](Resources/screenshot.PNG)
+
+---
