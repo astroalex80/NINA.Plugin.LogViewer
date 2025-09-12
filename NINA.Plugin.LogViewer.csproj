@@ -11,6 +11,12 @@
 		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="downloads\**" />
+	  <EmbeddedResource Remove="downloads\**" />
+	  <None Remove="downloads\**" />
+	  <Page Remove="downloads\**" />
+	</ItemGroup>
+	<ItemGroup>
 		<None Remove="logviewer3.png" />
 		<None Remove="screenshot.PNG" />
 	</ItemGroup>
@@ -52,7 +58,6 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="downloads\" />
 		<Folder Include="Tests\" />
 	</ItemGroup>
 	<PropertyGroup />
