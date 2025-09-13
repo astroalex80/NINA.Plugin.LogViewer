@@ -7,8 +7,8 @@ using System.Runtime.InteropServices;
 
 // [MANDATORY] The assembly versioning
 //Should be incremented for each new release build of a plugin
-[assembly: AssemblyVersion("1.0.0.1")]
-[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyVersion("1.0.0.2")]
+[assembly: AssemblyFileVersion("1.0.0.2")]
 
 // [MANDATORY] The name of your plugin
 [assembly: AssemblyTitle("Log Viewer")]
@@ -43,12 +43,12 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("Tags", "log, reader, viewer")]
 
 //[Optional] A link that will show a log of all changes in between your plugin's versions
-[assembly: AssemblyMetadata("ChangelogURL", "https://github.com/astroalex80/NINA.Plugin.LogViewer/CHANGELOG.md")]
+[assembly: AssemblyMetadata("ChangelogURL", "https://github.com/astroalex80/NINA.Plugin.LogViewer/blob/main/CHANGELOG.md")]
 
 //[Optional] The url to a featured logo that will be displayed in the plugin list next to the name
-[assembly: AssemblyMetadata("FeaturedImageURL", "/Log Viewer;component/Resources/LogViewer_Logo.png")]
+[assembly: AssemblyMetadata("FeaturedImageURL", "https://raw.githubusercontent.com/astroalex80/NINA.Plugin.LogViewer/main/Resources/LogViewer_Logo.png")]
 //[Optional] A url to an example screenshot of your plugin in action
-[assembly: AssemblyMetadata("ScreenshotURL", "/Log Viewer;component/Resources/screenshot.png")]
+[assembly: AssemblyMetadata("ScreenshotURL", "https://raw.githubusercontent.com/astroalex80/NINA.Plugin.LogViewer/main/Resources/screenshot.PNG")]
 //[Optional] An additional url to an example example screenshot of your plugin in action
 [assembly: AssemblyMetadata("AltScreenshotURL", "")]
 //[Optional] An in-depth description of your plugin

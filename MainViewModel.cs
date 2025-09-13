@@ -57,6 +57,20 @@ public sealed class MainViewModel : INotifyPropertyChanged {
         private set { if (_selectedLogPath == value) return; _selectedLogPath = value; OnPropertyChanged(); }
     }
 
+    private int? _totalLines;
+
+    public int? TotalLines {
+        get => _totalLines;
+        private set { if (_totalLines == value) return; _totalLines = value; OnPropertyChanged(); }
+    }
+
+    private bool _isEnabledUI = false;
+
+    public bool IsUIEnabled {
+        get => _isEnabledUI;
+        private set { if (_isEnabledUI == value) return; _isEnabledUI = value; OnPropertyChanged(); }
+    }
+
     private ReadStatus _lastReadStatus;
 
     public ReadStatus LastReadStatus {
@@ -82,19 +96,21 @@ public sealed class MainViewModel : INotifyPropertyChanged {
     public MainViewModel(ILogService service) {
         _service = service;
 
-        // Filters steuert die Sichtbarkeit (HideInfo etc.) – VM-eigene HideInfo wurde entfernt.
+        // Filters steuert die Sichtbarkeit (HideInfo etc.)
         Filters.PropertyChanged += (_, __) => LogEntriesView.Refresh();
 
         _loadLatestCommand = new AsyncRelayCommand(async _ => {
             if (IsLoading) return;
-            var latest = _service.GetActiveLogFile(); // kein Fallback – wie von Dir gewünscht
+            var latest = _service.GetActiveLogFile();
             if (latest is null) { SetStatus(ReadStatus.NotFound, "No logfile found."); return; }
+            Filters.ClearFilters();
             await LoadAsync(latest);
         }, _ => !IsLoading);
 
         _browseLogCommand = new AsyncRelayCommand(async _ => {
             if (IsLoading) return;
             var chosen = _service.PickLogFile();
+            Filters.ClearFilters();
             if (!string.IsNullOrEmpty(chosen)) {
                 await LoadAsync(chosen);
             }
@@ -102,7 +118,7 @@ public sealed class MainViewModel : INotifyPropertyChanged {
     }
 
     public async Task LoadAsync(string path) {
-        // Interner Timeout-Fallback: nach 10 s abbrechen (keine manuelle Cancellation-UI)
+        // Interner Timeout-Fallback: nach 10 s abbrechen (keine manuelle Cancellation)
         using var timeoutCts = new CancellationTokenSource(TimeSpan.FromMilliseconds(TimeoutMs));
         var ct = timeoutCts.Token;
 
@@ -138,32 +154,51 @@ public sealed class MainViewModel : INotifyPropertyChanged {
                     SetStatus(ReadStatus.Cancelled, "Reading timed out after 10 seconds. Showing partial results.");
                     Notification.ShowError("Reading timed out after 10 seconds.\nShowing partial results.");
                     Logger.Warning("Reading log was cancelled after timeout, showing partial results.");
+                    TotalLines = buffer.Count;
+                    if (TotalLines > 0) IsUIEnabled = true;
                 } else {
                     SetStatus(ReadStatus.Ok, $"Loaded {buffer.Count} log entries");
+                    TotalLines = buffer.Count;
+                    if (TotalLines > 0) IsUIEnabled = true;
                 }
             } else {
-                await RunOnUIAsync(() => HandleNonOk(result, path));
+                await RunOnUIAsync(async () => await HandleNonOk(result, path));
             }
         } finally {
             await RunOnUIAsync(() => { IsLoading = false; });
         }
     }
 
-    private void HandleNonOk(ReadResult result, string path) {
+    private async Task HandleNonOk(ReadResult result, string path) {
         switch (result.Status) {
             case ReadStatus.Empty:
+                await RunOnUIAsync(() => {
+                    LogEntriesView = new ListCollectionView(new List<LogRow>());
+                    TotalLines = 0;
+                    IsUIEnabled = false;
+                });
                 SelectedLogPath = Path.GetFileName(path);
-                Logger.Error($"The selected log file is empty\n{path}.");
-                Notification.ShowError("The selected log file is empty.");
+                Logger.Error($"The selected log file is empty {path}.");
+                Notification.ShowError($"The selected log file is empty.\n{SelectedLogPath}");
                 break;
 
             case ReadStatus.NotFound:
+                await RunOnUIAsync(() => {
+                    LogEntriesView = new ListCollectionView(new List<LogRow>());
+                    TotalLines = 0;
+                    IsUIEnabled = false;
+                });
                 Logger.Error("No log file found.");
                 Notification.ShowError("No log file found.");
                 break;
 
             case ReadStatus.Locked:
-                Logger.Error($"File locked by another process.\n{result.Error?.Message}");
+                await RunOnUIAsync(() => {
+                    LogEntriesView = new ListCollectionView(new List<LogRow>());
+                    TotalLines = 0;
+                    IsUIEnabled = false;
+                });
+                Logger.Error($"File locked by another process {result.Error?.Message}");
                 Notification.ShowError($"File locked by another process.\n{result.Error?.Message}");
                 break;
 
@@ -173,7 +208,12 @@ public sealed class MainViewModel : INotifyPropertyChanged {
                 break;
 
             case ReadStatus.Error:
-                Logger.Error($"An error occurred while reading the log file.\n{result.Error?.Message}");
+                await RunOnUIAsync(() => {
+                    LogEntriesView = new ListCollectionView(new List<LogRow>());
+                    TotalLines = 0;
+                    IsUIEnabled = false;
+                });
+                Logger.Error($"An error occurred while reading the log file. {result.Error?.Message}");
                 Notification.ShowError($"An error occurred while reading the log file.\n{result.Error?.Message}");
                 break;
         }

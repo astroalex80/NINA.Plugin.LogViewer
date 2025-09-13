@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:lv="clr-namespace:NINA.Plugin.Logviewer">
+    <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     <!--
         x:Class="NINA.Plugin.Logviewer.Options"
         xmlns:control="clr-namespace:FilterDataGrid;assembly=FilterDataGrid"
@@ -22,7 +23,7 @@
             </Grid.RowDefinitions>
             <DockPanel
                 Grid.Row="0"
-                Margin="0,6,0,10"
+                Margin="0,0,0,20"
                 LastChildFill="False">
                 <Button
                     Width="120"
@@ -49,50 +50,80 @@
                         Stretch="Uniform" />
                 </Button>
             </DockPanel>
-            <DockPanel
-                Grid.Row="1"
-                Margin="6,6,12,6"
-                VerticalAlignment="Center"
-                LastChildFill="False">
+            <!--<DockPanel Grid.Row="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="95" />
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="350" />
                         <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Column="0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        FontWeight="DemiBold"
-                        Text="Hide INFO rows" />
-                    <CheckBox
-                        Grid.Column="1"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="left"
-                        VerticalAlignment="Center"
-                        Content="Hide INFO"
-                        IsChecked="{Binding Filters.HideInfo}" />
-                    <TextBlock
-                        Grid.Column="2"
-                        Margin="0,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Text="{Binding SelectedLogPath}" />
-                </Grid>
-                <!--<ProgressBar
+                    </Grid.ColumnDefinitions>-->
+
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="6,0,0,10"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,0,0"
+                    VerticalAlignment="Center"
+                    FontWeight="DemiBold"
+                    IsEnabled="{Binding IsUIEnabled}"
+                    Text="Hide INFO" />
+                <CheckBox
+                    Margin="6,0,0,0"
+                    VerticalAlignment="Center"
+                    Content="Hide INFO"
+                    IsChecked="{Binding Filters.HideInfo}"
+                    IsEnabled="{Binding IsUIEnabled}" />
+                <TextBlock
+                    Margin="25,0,0,0"
+                    VerticalAlignment="Center"
+                    FontWeight="DemiBold"
+                    IsEnabled="{Binding IsUIEnabled}"
+                    Text="Hide DEBUG" />
+                <CheckBox
+                    Margin="6,0,0,0"
+                    VerticalAlignment="Center"
+                    Content="Hide DEBUG"
+                    IsChecked="{Binding Filters.HideDebug}"
+                    IsEnabled="{Binding IsUIEnabled}" />
+                <TextBlock
+                    Margin="25,0,0,0"
+                    VerticalAlignment="Center"
+                    FontWeight="DemiBold"
+                    IsEnabled="{Binding IsUIEnabled}"
+                    Text="Hide TRACE" />
+                <CheckBox
+                    Margin="6,0,0,0"
+                    VerticalAlignment="Center"
+                    Content="Hide TRACE"
+                    IsChecked="{Binding Filters.HideTrace}"
+                    IsEnabled="{Binding IsUIEnabled}" />
+                <TextBlock
+                    Margin="40,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding TotalLines, StringFormat='{}{0} entries in log: '}"
+                    Visibility="{Binding IsUIEnabled, Converter={StaticResource BoolToVisibility}}" />
+                <TextBlock
+                    Margin="0,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding SelectedLogPath, StringFormat=' {0}'}"
+                    Visibility="{Binding IsUIEnabled, Converter={StaticResource BoolToVisibility}}" />
+            </StackPanel>
+
+            <!--<ProgressBar
                     Width="120"
                     IsIndeterminate="True"
                     Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibility}}" />-->
-            </DockPanel>
 
             <DataGrid
                 Grid.Row="2"
-                Height="550"
+                Height="580"
                 AutoGenerateColumns="False"
                 CanUserSortColumns="True"
                 EnableColumnVirtualization="True"
                 EnableRowVirtualization="True"
+                IsEnabled="{Binding IsUIEnabled}"
                 IsReadOnly="True"
                 ItemsSource="{Binding LogEntriesView}"
                 ScrollViewer.CanContentScroll="True"
@@ -158,7 +189,7 @@
                                         <Style TargetType="TextBlock">
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding Level}" Value="WARNING">
-                                                    <Setter Property="Background" Value="{StaticResource NotificationWarningBrush}" />
+                                                    <Setter Property="Background" Value="OrangeRed" />
                                                     <Setter Property="FontWeight" Value="Bold" />
                                                 </DataTrigger>
                                                 <DataTrigger Binding="{Binding Level}" Value="ERROR">
@@ -238,7 +269,7 @@
                                         Margin="5,0,0,0"
                                         HorizontalAlignment="left"
                                         FontWeight="Bold"
-                                        Text="Message"
+                                        Text="Line &amp; Message"
                                         TextAlignment="Left" />
                                     <TextBox
                                         Width="200"
