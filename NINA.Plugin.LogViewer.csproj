@@ -14,7 +14,7 @@
 		<Resource Include="Resources\LogViewer_Logo.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Resources\screenshot.PNG">
+		<Resource Include="Resources\Screenshot.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
 	</ItemGroup>
