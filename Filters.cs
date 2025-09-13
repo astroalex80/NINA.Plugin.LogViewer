@@ -13,6 +13,20 @@ public class Filters : INotifyPropertyChanged {
         set { if (_hideInfo == value) return; _hideInfo = value; OnPropertyChanged(nameof(HideInfo)); }
     }
 
+    private bool _hideTrace;
+
+    public bool HideTrace {
+        get => _hideTrace;
+        set { if (_hideTrace == value) return; _hideTrace = value; OnPropertyChanged(nameof(HideTrace)); }
+    }
+
+    private bool _hideDebug;
+
+    public bool HideDebug {
+        get => _hideDebug;
+        set { if (_hideDebug == value) return; _hideDebug = value; OnPropertyChanged(nameof(HideDebug)); }
+    }
+
     // DATE|LEVEL|SOURCE|MEMBER|LINE|MESSAGE
 
     private string? _dateFilter;
@@ -56,10 +70,27 @@ public class Filters : INotifyPropertyChanged {
 
     private void OnPropertyChanged(string name) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
+    public void ClearFilters() {
+        HideInfo = false;
+        HideTrace = false;
+        HideDebug = false;
+        DateFilter = null;
+        TimeFilter = null;
+        LevelFilter = null;
+        SourceFilter = null;
+        MemberFilter = null;
+        MessageFilter = null;
+    }
+
     /// <summary> Prüft, ob eine Zeile alle aktiven Filter passiert. </summary>
     public bool Matches(LogRow row) {
-        // 1) INFO ausblenden?
         if (HideInfo && string.Equals(row.Level, "INFO", StringComparison.OrdinalIgnoreCase))
+            return false;
+
+        if (HideTrace && string.Equals(row.Level, "TRACE", StringComparison.OrdinalIgnoreCase))
+            return false;
+
+        if (HideDebug && string.Equals(row.Level, "DEBUG", StringComparison.OrdinalIgnoreCase))
             return false;
 
         if (!string.IsNullOrWhiteSpace(DateFilter) && DateFilter.Length > 1) {
